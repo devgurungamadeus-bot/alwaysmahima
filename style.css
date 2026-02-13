@@ -385,6 +385,7 @@ h3 {
 
 .spotify-player iframe {
   display: block;
+  height: 152px;
 }
 
 
@@ -501,9 +502,13 @@ h3 {
   }
 
   .spotify-player {
-    width: calc(100vw - 1.5rem);
+    width: min(180px, calc(100vw - 1.5rem));
     right: 0.75rem;
     bottom: 0.75rem;
+  }
+
+  .spotify-player iframe {
+    height: 80px;
   }
 
   .love-letter-modal {
