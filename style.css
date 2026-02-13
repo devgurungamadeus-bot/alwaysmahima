@@ -27,7 +27,7 @@ body {
 
 body.modal-open #main-content,
 body.modal-open .hero,
-body.modal-open .music-btn {
+body.modal-open .spotify-player {
   filter: blur(2px);
 }
 
@@ -203,8 +203,8 @@ h3 {
 
 .card img {
   width: 100%;
-  aspect-ratio: 16/11;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
   border-radius: 22px;
   background: var(--rose-50);
 }
@@ -372,25 +372,22 @@ h3 {
   animation: fall 6.8s linear forwards;
 }
 
-.music-btn {
+.spotify-player {
   position: fixed;
   right: 1rem;
   bottom: 1rem;
-  width: 54px;
-  height: 54px;
-  border: 0;
-  border-radius: 50%;
-  color: #fff;
-  background: linear-gradient(135deg, #b26982, #955269);
-  box-shadow: 0 14px 26px rgba(103, 51, 69, 0.28);
-  cursor: pointer;
+  width: min(280px, calc(100vw - 2rem));
   z-index: 10;
-  transition: filter 0.35s ease;
+  box-shadow: 0 14px 26px rgba(103, 51, 69, 0.28);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-.music-btn.playing {
-  animation: pulse 1.8s ease-in-out infinite;
+.spotify-player iframe {
+  display: block;
+  height: 80px;
 }
+
 
 .reveal {
   opacity: 0;
@@ -504,9 +501,14 @@ h3 {
     border-radius: 16px;
   }
 
-  .music-btn {
-    width: 48px;
-    height: 48px;
+  .spotify-player {
+    width: min(220px, calc(100vw - 1.5rem));
+    right: 0.75rem;
+    bottom: 0.75rem;
+  }
+
+  .spotify-player iframe {
+    height: 72px;
   }
 
   .love-letter-modal {

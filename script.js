@@ -2,10 +2,6 @@ const beginJourneyBtn = document.getElementById("begin-journey");
 const timelineSection = document.getElementById("timeline");
 const ambient = document.querySelector(".ambient");
 const revealElements = document.querySelectorAll(".reveal");
-const musicToggleBtn = document.getElementById("music-toggle");
-const romanticMusic = document.getElementById("romantic-music");
-const musicSource = romanticMusic.querySelector("source");
-
 const loveLetterTrigger = document.getElementById("love-letter-trigger");
 const loveLetterOverlay = document.getElementById("love-letter-overlay");
 const loveLetterModal = document.querySelector(".love-letter-modal");
@@ -47,27 +43,6 @@ const revealObserver = new IntersectionObserver(
 );
 
 revealElements.forEach((item) => revealObserver.observe(item));
-
-musicToggleBtn.addEventListener("click", async () => {
-  const hasSource = Boolean(musicSource?.getAttribute("src"));
-  if (!hasSource) {
-    return;
-  }
-
-  if (romanticMusic.paused) {
-    try {
-      await romanticMusic.play();
-      musicToggleBtn.classList.add("playing");
-      musicToggleBtn.textContent = "❚❚";
-    } catch {
-      musicToggleBtn.textContent = "♫";
-    }
-  } else {
-    romanticMusic.pause();
-    musicToggleBtn.classList.remove("playing");
-    musicToggleBtn.textContent = "♫";
-  }
-});
 
 function spawnHeartBurst() {
   heartBurst.innerHTML = "";
@@ -120,12 +95,6 @@ async function openLoveLetter() {
   window.setTimeout(() => {
     fallingHeartsTimer = window.setInterval(spawnFallingHeart, 620);
   }, 700);
-
-  if (!romanticMusic.paused) {
-    romanticMusic.pause();
-    musicToggleBtn.classList.remove("playing");
-    musicToggleBtn.textContent = "♫";
-  }
 
   try {
     await letterMusic.play();
