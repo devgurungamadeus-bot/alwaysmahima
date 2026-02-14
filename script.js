@@ -9,8 +9,20 @@ const heartBurst = document.getElementById("heart-burst");
 const fallingHearts = document.getElementById("falling-hearts");
 const letterMusic = document.getElementById("letter-music");
 
+const questionScreen = document.getElementById("question-screen");
+const questionBgHearts = document.getElementById("question-bg-hearts");
+const wrongAnswerBtn = document.getElementById("wrong-answer");
+const correctAnswerBtn = document.getElementById("correct-answer");
+const teaseText = document.getElementById("tease-text");
+const successMessage = document.getElementById("success-message");
+const enterStoryBtn = document.getElementById("enter-story");
+const questionHeartBurst = document.getElementById("question-heart-burst");
+const mainContent = document.getElementById("main-content");
+
 let ambientTimer = null;
+let bgHeartsTimer = null;
 let fallingHeartsTimer = null;
+let dodgeAttempts = 0;
 
 beginJourneyBtn.addEventListener("click", () => {
   timelineSection.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -28,7 +40,20 @@ function addParticle() {
   window.setTimeout(() => particle.remove(), 16000);
 }
 
+function spawnQuestionHeart() {
+  const heart = document.createElement("span");
+  heart.className = "bg-heart";
+  heart.textContent = Math.random() > 0.45 ? "❤" : "✦";
+  heart.style.left = `${Math.random() * 100}%`;
+  heart.style.fontSize = `${12 + Math.random() * 15}px`;
+  heart.style.animationDuration = `${8 + Math.random() * 4}s`;
+  questionBgHearts.appendChild(heart);
+
+  window.setTimeout(() => heart.remove(), 13000);
+}
+
 ambientTimer = window.setInterval(addParticle, 1400);
+bgHeartsTimer = window.setInterval(spawnQuestionHeart, 700);
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
@@ -44,9 +69,9 @@ const revealObserver = new IntersectionObserver(
 
 revealElements.forEach((item) => revealObserver.observe(item));
 
-function spawnHeartBurst() {
-  heartBurst.innerHTML = "";
-  const total = 22;
+function spawnHeartBurst(container) {
+  container.innerHTML = "";
+  const total = 24;
 
   for (let i = 0; i < total; i += 1) {
     const heart = document.createElement("span");
@@ -63,13 +88,60 @@ function spawnHeartBurst() {
     heart.style.animationDelay = `${Math.random() * 0.08}s`;
     heart.style.fontSize = `${14 + Math.random() * 18}px`;
 
-    heartBurst.appendChild(heart);
+    container.appendChild(heart);
 
     window.setTimeout(() => {
       heart.remove();
     }, 1500);
   }
 }
+
+function dodgeWrongButton() {
+  wrongAnswerBtn.classList.add("dodge");
+  const area = document.getElementById("answer-row").getBoundingClientRect();
+  const btnRect = wrongAnswerBtn.getBoundingClientRect();
+
+  const maxX = Math.max(area.width - btnRect.width, 8);
+  const maxY = Math.max(area.height - btnRect.height, 8);
+
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
+
+  wrongAnswerBtn.style.left = `${randomX}px`;
+  wrongAnswerBtn.style.top = `${randomY}px`;
+  wrongAnswerBtn.style.transform = "scale(0.94)";
+
+  window.setTimeout(() => {
+    wrongAnswerBtn.style.transform = "scale(1)";
+  }, 150);
+
+  dodgeAttempts += 1;
+  wrongAnswerBtn.textContent = dodgeAttempts > 1 ? "Are you sure? 😏" : "You 😌";
+  teaseText.textContent = "Nope nope… try the sweeter truth 💘";
+}
+
+function unlockStory() {
+  successMessage.classList.add("show");
+  correctAnswerBtn.disabled = true;
+  wrongAnswerBtn.disabled = true;
+  teaseText.textContent = "";
+  spawnHeartBurst(questionHeartBurst);
+}
+
+wrongAnswerBtn.addEventListener("mouseenter", dodgeWrongButton);
+wrongAnswerBtn.addEventListener("click", dodgeWrongButton);
+
+correctAnswerBtn.addEventListener("click", unlockStory);
+
+enterStoryBtn.addEventListener("click", () => {
+  questionScreen.classList.add("hidden");
+  mainContent.classList.remove("locked");
+  mainContent.setAttribute("aria-hidden", "false");
+  window.setTimeout(() => {
+    questionScreen.style.display = "none";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, 700);
+});
 
 function spawnFallingHeart() {
   const heart = document.createElement("span");
@@ -90,7 +162,7 @@ async function openLoveLetter() {
   document.body.classList.add("modal-open");
   loveLetterOverlay.classList.add("open");
   loveLetterOverlay.setAttribute("aria-hidden", "false");
-  spawnHeartBurst();
+  spawnHeartBurst(heartBurst);
 
   window.setTimeout(() => {
     fallingHeartsTimer = window.setInterval(spawnFallingHeart, 620);
@@ -138,6 +210,9 @@ window.addEventListener("keydown", (event) => {
 window.addEventListener("beforeunload", () => {
   if (ambientTimer) {
     window.clearInterval(ambientTimer);
+  }
+  if (bgHeartsTimer) {
+    window.clearInterval(bgHeartsTimer);
   }
   if (fallingHeartsTimer) {
     window.clearInterval(fallingHeartsTimer);
