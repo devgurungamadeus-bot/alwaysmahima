@@ -15,18 +15,40 @@
   <body>
     <div class="ambient" aria-hidden="true"></div>
 
-    <header class="hero" id="top">
-      <div class="hero-inner">
-        <p class="eyebrow">To my Baby Girl</p>
-        <h1>Our Story ❤️</h1>
-        <p class="hero-sub">
-          Every moment with you has been my favorite chapter. Here is our journey…
-        </p>
-        <button id="begin-journey" class="cta">Click me :)</button>
-      </div>
-    </header>
+    <section class="question-screen" id="question-screen" aria-label="Love story entrance">
+      <div class="question-bg-hearts" id="question-bg-hearts" aria-hidden="true"></div>
+      <div class="question-card">
+        <p class="eyebrow">For My Mahima ✨</p>
+        <h1>Before You Enter Our Love Story…</h1>
+        <p class="question-text">Who loves Mahima the most in this universe? 👀</p>
 
-    <main id="main-content">
+        <div class="answer-row" id="answer-row">
+          <button id="wrong-answer" class="answer-btn wrong" type="button">You 😌</button>
+          <button id="correct-answer" class="answer-btn correct" type="button">My Husband 😍</button>
+        </div>
+
+        <p id="tease-text" class="tease-text" aria-live="polite"></p>
+
+        <div id="success-message" class="success-message" aria-live="polite">
+          <p>Correct Answer ❤️<br />And that husband is the luckiest man alive.</p>
+          <button id="enter-story" class="cta cta-enter" type="button">Enter Our Love Story</button>
+        </div>
+      </div>
+      <div id="question-heart-burst" class="question-heart-burst" aria-hidden="true"></div>
+    </section>
+
+    <main id="main-content" class="main-content locked" aria-hidden="true">
+      <header class="hero" id="top">
+        <div class="hero-inner">
+          <p class="eyebrow">To my Baby Girl</p>
+          <h2>Our Story ❤️</h2>
+          <p class="hero-sub">
+            Every moment with you has been my favorite chapter. Here is our journey…
+          </p>
+          <button id="begin-journey" class="cta" type="button">Start Timeline</button>
+        </div>
+      </header>
+
       <section class="timeline-section" id="timeline" aria-label="Our timeline">
         <div class="section-head">
           <p>Our Timeline</p>
@@ -41,7 +63,7 @@
               <h3>The Day My Life Changed</h3>
               <p>
                 I remember the first time I saw you at school.
-                You were inside the classroom, teaching, looking shy yet so elegant. 
+                You were inside the classroom, teaching, looking shy yet so elegant.
                 I came up with a simple excuse just to speak to you and asked
                 , “Which subject is this?” You smiled and said, “English.”
                 I don’t think you realized then that I already knew the answer — I just wanted you to notice me.
@@ -55,11 +77,11 @@
               <p class="date">2nd July</p>
               <h3>When ‘Us’ Began</h3>
               <p>
-                Even though there was rejection at first, 
-                I never felt like giving up. 
-                I’m so thankful you gave me a chance to know you better. 
-                When you finally accepted my Facebook request, our journey began. 
-                Our conversations felt so natural, and we could both feel the connection. 
+                Even though there was rejection at first,
+                I never felt like giving up.
+                I’m so thankful you gave me a chance to know you better.
+                When you finally accepted my Facebook request, our journey began.
+                Our conversations felt so natural, and we could both feel the connection.
                 We used to text until 2 a.m., not wanting the conversations to end.
               </p>
             </div>
@@ -71,11 +93,11 @@
               <p class="date">July</p>
               <h3>Falling In Love With You</h3>
               <p>
-                I fell in love with your bubbly spirit, 
-                your expressive eyes, your cute smile, 
-                and the beautiful heart that makes you who you are. 
-                I still remember the first time I saw you walking into the store, 
-                your head covered with a scarf and your eyes shining. 
+                I fell in love with your bubbly spirit,
+                your expressive eyes, your cute smile,
+                and the beautiful heart that makes you who you are.
+                I still remember the first time I saw you walking into the store,
+                your head covered with a scarf and your eyes shining.
                 You were the most beautiful girl I had ever seen in my life — you looked like a dream.
               </p>
             </div>
@@ -87,9 +109,9 @@
               <p class="date">December 3</p>
               <h3>December 3 — The Day You Became My Wife</h3>
               <p>
-                The day we got married was not just the beginning of a new chapter; 
-                it was the moment when two souls promised each other forever. 
-                The way we got married felt almost historic, 
+                The day we got married was not just the beginning of a new chapter;
+                it was the moment when two souls promised each other forever.
+                The way we got married felt almost historic,
                 and I truly loved every part of it. It was magical.
               </p>
               <p class="signature">Mahima — my wife, my home, my greatest blessing.</p>
@@ -154,7 +176,6 @@ I may not always be very expressive, but my love for you is endless. I will alwa
 
 Forever yours,
 Your Husband ❤️
-
         </p>
         <p class="glow-line">Close your eyes and feel me holding your hand.</p>
       </article>
@@ -165,7 +186,7 @@ Your Husband ❤️
         data-testid="embed-iframe"
         style="border-radius: 12px"
         src="https://open.spotify.com/embed/track/0q5e5KtUOhYQujmhLP0pKd?utm_source=generator&autoplay=1"
-        width="80%"
+        width="100%"
         height="200"
         frameborder="0"
         allowfullscreen=""
@@ -173,6 +194,7 @@ Your Husband ❤️
         loading="lazy"
       ></iframe>
     </div>
+
     <audio id="letter-music" preload="none" loop>
       <source src="romantic-instrumental.mp3" type="audio/mpeg" />
     </audio>
